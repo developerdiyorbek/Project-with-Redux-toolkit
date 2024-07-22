@@ -13,6 +13,10 @@ const ArticleService = {
     const { data } = await customAxios.post(`/articles`, { article });
     return data;
   },
+  editArticle: async (slug, article) => {
+    const { data } = await customAxios.put(`/articles/${slug}`, { article });
+    return data;
+  },
   deleteArticle: async (slug) => {
     const { data } = await customAxios.delete(`/articles/${slug}`);
     return data;

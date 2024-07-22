@@ -1,18 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ArticleService from "../service/article";
 import { deleteArticle } from "../slice/article";
+import { useState } from "react";
 
 function ArticleCard(item) {
   const { loggedIn, user } = useSelector((state) => state.auth);
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onDelete = async (slug) => {
+    setIsLoading(true);
     try {
       await ArticleService.deleteArticle(slug);
+      setIsLoading(false);
       dispatch(deleteArticle(slug));
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -41,6 +47,7 @@ function ArticleCard(item) {
                 <button
                   type="button"
                   className="btn btn-sm btn-outline-warning"
+                  onClick={() => navigate(`/edit-article/${item.slug}`)}
                 >
                   Edit
                 </button>
@@ -48,6 +55,7 @@ function ArticleCard(item) {
                   type="button"
                   className="btn btn-sm btn-outline-danger"
                   onClick={() => onDelete(item.slug)}
+                  disabled={isLoading}
                 >
                   Delete
                 </button>

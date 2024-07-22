@@ -5,6 +5,7 @@ const initialState = {
   articles: [],
   error: null,
   articleDetail: null,
+  index: null,
 };
 
 export const articleSlice = createSlice({
@@ -38,6 +39,14 @@ export const articleSlice = createSlice({
       state.isLoading = false;
       state.articles.unshift(action.payload);
     },
+    editArticleStart: (state, action) => {
+      state.index = state.articles.findIndex(
+        (item) => item.slug === action.payload
+      );
+    },
+    editArticleSuccess: (state, action) => {
+      state.articles = state.articles.with(state.index, action.payload);
+    },
     deleteArticle: (state, action) => {
       state.articles = state.articles.filter(
         (item) => item.slug !== action.payload
@@ -56,6 +65,8 @@ export const {
   createArticleStart,
   createArticleSuccess,
   deleteArticle,
+  editArticleStart,
+  editArticleSuccess,
 } = articleSlice.actions;
 
 export default articleSlice.reducer;

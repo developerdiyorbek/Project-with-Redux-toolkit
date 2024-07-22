@@ -44,7 +44,10 @@ function CreateArticle() {
             setState={setBody}
             height="250px"
           />
-          <button className="w-100 btn btn-lg btn-primary mt-2">
+          <button
+            className="w-100 btn btn-lg btn-primary mt-2"
+            disabled={isLoading}
+          >
             {isLoading ? "Loading..." : "Create"}
           </button>
         </form>

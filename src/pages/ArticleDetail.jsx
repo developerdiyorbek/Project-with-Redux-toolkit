@@ -15,8 +15,6 @@ function ArticleDetail() {
   const dispatch = useDispatch();
   const { isLoading, articleDetail } = useSelector((state) => state.article);
 
-  console.log(articleDetail);
-
   const getArticle = async () => {
     dispatch(getArticleStart());
     try {
