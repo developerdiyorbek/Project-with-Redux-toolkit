@@ -34,6 +34,15 @@ export const articleSlice = createSlice({
     createArticleStart: (state) => {
       state.isLoading = true;
     },
+    createArticleSuccess: (state, action) => {
+      state.isLoading = false;
+      state.articles.unshift(action.payload);
+    },
+    deleteArticle: (state, action) => {
+      state.articles = state.articles.filter(
+        (item) => item.slug !== action.payload
+      );
+    },
   },
 });
 
@@ -44,6 +53,9 @@ export const {
   getArticleStart,
   getArticleSuccess,
   getArticlesFailed,
+  createArticleStart,
+  createArticleSuccess,
+  deleteArticle,
 } = articleSlice.actions;
 
 export default articleSlice.reducer;

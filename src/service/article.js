@@ -9,6 +9,14 @@ const ArticleService = {
     const { data } = await customAxios.get(`/articles/${slug}`);
     return data;
   },
+  createArticle: async (article) => {
+    const { data } = await customAxios.post(`/articles`, { article });
+    return data;
+  },
+  deleteArticle: async (slug) => {
+    const { data } = await customAxios.delete(`/articles/${slug}`);
+    return data;
+  },
 };
 
 export default ArticleService;
